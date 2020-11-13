@@ -1,8 +1,9 @@
 # Raifhack2020
 Хакатон Raifhack 14-15 ноября 2020
 
-Внетри 2 ветки front_master и back_master
-Для слияния:
+Внетри 2 ветки front_master и back_master.
+
+Для слияния их в мастер:
 1) Переключиться на мастер
 ```git checkout master```
 2) Выкачать последнего мастера 

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    admin:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                project: admin
+        ports:
+        -   "8080:80"
+        environment:
+            - project=admin

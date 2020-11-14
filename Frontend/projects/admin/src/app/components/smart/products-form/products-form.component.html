@@ -21,5 +21,34 @@
 		<mat-label>Описание</mat-label>
 		<input matInput formControlName="description">
 	</mat-form-field>
+	<button
+		mat-raised-button
+		color="primary">
+
+		Сохранить
+	</button>
 </form>
 
+<ng-container *ngIf="products$ | async as products">
+	<mat-card *ngFor="let product of products" class="example-card">
+		<mat-card-header>
+			<mat-card-title>{{ product.name }}</mat-card-title>
+			<mat-card-subtitle>Категория: {{ product.categories.name }}</mat-card-subtitle>
+		</mat-card-header>
+		<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+		<mat-card-content>
+			<p>
+				Описание: {{ product.description }}
+			</p>
+			<div>Цена: {{ product.cost }}</div>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-icon-button color="primary">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button color="primary">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</ng-container>

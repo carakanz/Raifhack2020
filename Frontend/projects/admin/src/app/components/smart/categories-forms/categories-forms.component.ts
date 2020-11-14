@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
@@ -13,7 +13,10 @@ export class CategoriesFormsComponent implements OnInit {
 		return this.categoriesForm.get('categories') as FormArray;
 	}
 
-	constructor(private formBuilder: FormBuilder) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		private cdRef: ChangeDetectorRef,
+	) {}
 
 	ngOnInit(): void {
 		this.categoriesForm = this.formBuilder.group(
@@ -21,6 +24,11 @@ export class CategoriesFormsComponent implements OnInit {
 				categories: this.formBuilder.array([this.getCategoryForm()]),
 			}
 		)
+	}
+
+	public createNewCategory(): void {
+		this.categoriesFormArray.push(this.getCategoryForm());
+		this.cdRef.detectChanges();
 	}
 
 	private getCategoryForm(): FormGroup {

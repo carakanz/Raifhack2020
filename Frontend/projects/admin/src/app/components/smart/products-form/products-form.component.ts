@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {SitesService} from "../../../services/sites/sites.service";
 import {Observable} from "rxjs";
 import {CategoriesInterface} from "../../../services/sites/interfaces/categories.interface";
+import {ProductInterface} from "../../../services/sites/interfaces/product.interface";
 
 @Component({
 	selector: 'app-products-form',
@@ -11,7 +12,9 @@ import {CategoriesInterface} from "../../../services/sites/interfaces/categories
 })
 export class ProductsFormComponent implements OnInit {
 	public form: FormGroup;
-	public categories$: Observable<CategoriesInterface[]>
+	public categories$: Observable<CategoriesInterface[]>;
+	public products$: Observable<ProductInterface[]>
+	public isFormOpened: boolean;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -27,6 +30,13 @@ export class ProductsFormComponent implements OnInit {
 		});
 
 		this.categories$ = this.sitesService.getCategories$();
+		this.products$ = this.sitesService.getProducts$();
+	}
+
+	public onEditClick(product: ProductInterface): void {
+		this.form.patchValue(product);
+
+		this.isFormOpened = true;
 	}
 
 }

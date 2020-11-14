@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SessionGuard } from './modules/core/services/session.guard';
+import {MySitesComponent} from "./components/smart/my-sites/my-sites.component";
+import {CreateAndEditSiteComponent} from "./components/smart/create-and-edit-site/create-and-edit-site.component";
 
 const routes: Routes = [
 	{
-		path: 'auth',
-		loadChildren: () => import('./modules/auth/auth.module').then((x) => x.AuthModule),
+		path: '',
+		component: MySitesComponent,
 	},
 	{
-		path: 'private',
-		loadChildren: () => import('./modules/private/private.module').then((x) => x.PrivateModule),
-		canActivate: [SessionGuard],
+		path: 'create',
+		component: CreateAndEditSiteComponent,
 	},
+	{
+		path: `edit/:id`,
+		component: CreateAndEditSiteComponent
+	}
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
+	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

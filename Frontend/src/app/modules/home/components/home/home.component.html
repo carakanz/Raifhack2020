@@ -1,0 +1,18 @@
+<app-banner></app-banner>
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 my-4">
+			<h3 class="mat-headline">Категории:</h3>
+			<mat-chip-list>
+				<mat-chip *ngFor="let item of site.categories | async"
+						  [routerLink]="item.slug"
+						  [selected]="router.isActive(item.slug, false)">
+					{{ item.name }}
+				</mat-chip>
+			</mat-chip-list>
+		</div>
+	</div>
+	<router-outlet></router-outlet>
+</div>
+

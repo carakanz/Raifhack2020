@@ -1,0 +1,20 @@
+
+<div class="row flex-wrap">
+	<div class="col-4 my-3 product" *ngFor="let item of site.products | async">
+		<mat-card>
+			<mat-card-title>
+				{{ item.name }}
+			</mat-card-title>
+			<mat-card-subtitle>
+				{{ item.cost | ruble }}
+			</mat-card-subtitle>
+			<app-image [id]="item.id"></app-image>
+			<mat-card-content>
+				{{ item.description }}
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-button (click)="site.buy(item.id)">Купить</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

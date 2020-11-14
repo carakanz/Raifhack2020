@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { SiteService } from '../../../core/services/site.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
 declare var PaymentPageSdk: any;
 
@@ -28,12 +29,15 @@ export class GoodComponent implements OnInit {
 	ngOnInit(): void {}
 
 	public pay(): void {
-		switch (this.state) {
-			case 'initial':
-				this.state = 'payment';
-
-				break;
-		}
+		this.site.product.pipe(take(1)).subscribe((x) => {
+			this.site
+				.buyEcom({
+					...this.formGroup.value,
+					products: [x],
+				})
+				.pipe(take(1))
+				.subscribe();
+		});
 	}
 
 	dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {

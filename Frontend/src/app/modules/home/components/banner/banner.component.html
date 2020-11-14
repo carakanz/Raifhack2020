@@ -1,6 +1,5 @@
 <div class="banner-container d-flex align-items-center">
-	<div class="banner-image-wrapper">
-		<img [src]="site?.banner?.asObservable() | async" alt="">
+	<div class="banner-image-wrapper" [ngStyle]="{ 'background': 'url(' + banner + ') no-repeat center center' }">
 	</div>
 	<div class="banner-image-overlay">
 	</div>

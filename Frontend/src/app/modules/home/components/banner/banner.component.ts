@@ -7,7 +7,20 @@ import { SiteService } from '../../../core/services/site.service';
 	styleUrls: ['./banner.component.scss'],
 })
 export class BannerComponent implements OnInit {
+	get banner(): string {
+		return this._banner;
+	}
+	// tslint:disable-next-line:variable-name
+	private _banner: string;
 	constructor(public readonly site: SiteService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.site.banner.subscribe((x) => {
+			if (typeof x === 'string') {
+				this._banner = x;
+			} else {
+				this._banner = URL.createObjectURL(x);
+			}
+		});
+	}
 }

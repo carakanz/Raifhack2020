@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { LoaderService } from './modules/core/services/loader.service';
 import { filter, take } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
+import { StyleManager } from './modules/core/services/style-manager.service';
 
 @Component({
 	selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
 	constructor(
 		public readonly site: SiteService,
 		public readonly loader: LoaderService,
-		private readonly title: Title
+		private readonly title: Title,
+		private readonly styleLoader: StyleManager
 	) {}
 
 	public ngOnInit(): void {
@@ -40,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
 					this.logo = y;
 					this.site.logo.next(y);
 				});
+			this.styleLoader.setStyle('theme', '/assets/' + x + '.css');
 		});
 	}
 

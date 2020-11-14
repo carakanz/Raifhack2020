@@ -11,7 +11,7 @@
 	<router-outlet></router-outlet>
 </div>
 
-<div class="footer py-4">
+<div class="py-4 mat-toolbar mat-primary">
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
@@ -20,10 +20,10 @@
 				</p>
 			</div>
 			<div class="col-6 text-right">
-				<p>
+				<p style="font-size: 1rem !important;">
 					{{ (site?.currentSite?.asObservable() | async)?.phone }}
 				</p>
-				<p>
+				<p style="font-size: 1rem !important;">
 					{{ (site?.currentSite?.asObservable() | async)?.address }}
 				</p>
 			</div>

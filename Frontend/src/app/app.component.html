@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-	<div class="logo-wrapper">
+	<div class="logo-wrapper" [routerLink]="'/'">
 		<img [src]="logo" alt="">
 	</div>
 	<span class="example-spacer"></span>
-	<button mat-icon-button class="example-icon">
+	<button mat-icon-button class="example-icon" routerLink="/basket" *ngIf="(site?.currentSite?.asObservable() | async)?.type === 'shop'">
 		<mat-icon>add_shopping_cart</mat-icon>
 	</button>
 	<button mat-icon-button class="example-icon">
@@ -18,7 +18,7 @@
 	<router-outlet></router-outlet>
 </div>
 
-<div class="py-4 mat-toolbar mat-primary">
+<div class="py-4 mat-toolbar mat-primary mt-4">
 	<div class="container">
 		<div class="row">
 			<div class="col-6">

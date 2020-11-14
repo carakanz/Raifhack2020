@@ -24,8 +24,8 @@ export class CategoryComponent implements OnInit {
 			this.site
 				.getCategory(x.get('slug'))
 				.pipe(take(1))
-				.subscribe((x) => {
-					this.site.products.next(x);
+				.subscribe((y) => {
+					this.site.products.next(y);
 				});
 		});
 	}

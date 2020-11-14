@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { CategoryComponent } from './components/category/category.component';
+
+@Component({
+	template: `<router-outlet></router-outlet>`,
+})
+export class Wrapper {}
 
 const routes: Routes = [
 	{
@@ -9,8 +14,14 @@ const routes: Routes = [
 		component: HomeComponent,
 		children: [
 			{
-				path: ':slug',
-				component: CategoryComponent,
+				path: 'categories',
+				component: Wrapper,
+				children: [
+					{
+						path: ':slug',
+						component: CategoryComponent,
+					},
+				],
 			},
 		],
 	},
@@ -19,5 +30,6 @@ const routes: Routes = [
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule],
+	declarations: [Wrapper],
 })
 export class HomeRoutingModule {}

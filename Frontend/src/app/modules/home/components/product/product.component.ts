@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SiteService } from '../../../core/services/site.service';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-product',
@@ -8,7 +9,18 @@ import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 	styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-	constructor(public readonly site: SiteService) {}
+	public formGroup: FormGroup;
+	public state: 'initial' | 'success' = 'initial';
+
+	constructor(public readonly site: SiteService, private readonly builder: FormBuilder) {
+		this.formGroup = this.builder.group({
+			name: '',
+			phone: '',
+			address: '',
+			email: '',
+			date: '',
+		});
+	}
 
 	ngOnInit(): void {}
 	dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
@@ -20,4 +32,8 @@ export class ProductComponent implements OnInit {
 
 		return '';
 	};
+
+	public purchase(): void {
+		this.state = 'success';
+	}
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { SiteService } from '../../../core/services/site.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+declare var PaymentPageSdk: any;
 
 @Component({
 	selector: 'app-good',
@@ -10,7 +13,16 @@ import { SiteService } from '../../../core/services/site.service';
 export class GoodComponent implements OnInit {
 	public state: 'initial' | 'payment' | 'complete' = 'initial';
 
-	constructor(public readonly site: SiteService) {}
+	public formGroup: FormGroup;
+
+	constructor(public readonly site: SiteService, private readonly builder: FormBuilder) {
+		this.formGroup = builder.group({
+			name: '',
+			phone: '',
+			address: '',
+			email: '',
+		});
+	}
 
 	ngOnInit(): void {}
 
@@ -18,6 +30,7 @@ export class GoodComponent implements OnInit {
 		switch (this.state) {
 			case 'initial':
 				this.state = 'payment';
+
 				break;
 		}
 	}

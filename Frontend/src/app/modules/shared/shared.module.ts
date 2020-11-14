@@ -32,6 +32,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RublePipe } from './pipes/ruble.pipe';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ImageComponent } from '../home/components/image/image.component';
 
 const materialModules = [
 	MatCheckboxModule,
@@ -69,8 +70,8 @@ const materialModules = [
 ];
 
 @NgModule({
-	declarations: [RublePipe],
+	declarations: [RublePipe, ImageComponent],
 	imports: [CommonModule, ...materialModules],
-	exports: [...materialModules, RublePipe],
+	exports: [...materialModules, RublePipe, ImageComponent],
 })
 export class SharedModule {}

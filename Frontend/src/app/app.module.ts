@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 	providers: [
 		{
 			provide: API_URL,
-			useValue: 'localhost',
+			useValue: 'http://a8a60a5d0ba8.sn.mynetname.net/api',
 		},
 	],
 	bootstrap: [AppComponent],

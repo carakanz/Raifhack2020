@@ -1,7 +1,6 @@
 import { AfterViewChecked, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SiteService } from '../../../core/services/site.service';
 import { filter, take } from 'rxjs/operators';
-import { MatChip } from '@angular/material/chips';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +18,7 @@ export class HomeComponent implements OnInit {
 				take(1)
 			)
 			.subscribe((x) => {
-				this.router.navigate([x[0].slug]);
+				this.router.navigate(['categories', x[0].slug]);
 			});
 	}
 }

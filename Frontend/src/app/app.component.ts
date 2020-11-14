@@ -5,6 +5,7 @@ import { LoaderService } from './modules/core/services/loader.service';
 import { filter, take } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { StyleManager } from './modules/core/services/style-manager.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
 		public readonly site: SiteService,
 		public readonly loader: LoaderService,
 		private readonly title: Title,
-		private readonly styleLoader: StyleManager
+		private readonly styleLoader: StyleManager,
+		private readonly router: Router
 	) {}
 
 	public ngOnInit(): void {

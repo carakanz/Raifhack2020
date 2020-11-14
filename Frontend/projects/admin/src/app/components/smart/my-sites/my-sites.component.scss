@@ -1,0 +1,18 @@
+:host {
+	width: 100%;
+}
+
+.container {
+	margin: 20px 50px 0;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 10px;
+}
+
+.card {
+
+}
+
+.with-padding {
+	padding: 0 16px;
+}

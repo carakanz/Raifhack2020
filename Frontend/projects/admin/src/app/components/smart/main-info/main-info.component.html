@@ -1,0 +1,68 @@
+<form [formGroup]="mainForm" class="form">
+	<h2>Основная информация</h2>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Название</mat-label>
+		<input matInput formControlName="name">
+	</mat-form-field>
+	<br>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Тип сайта</mat-label>
+		<mat-select formControlName="type">
+			<mat-option *ngFor="let type of siteTypes" value="option">
+				{{ type }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<br>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Семантический URL</mat-label>
+		<input matInput formControlName="slug">
+	</mat-form-field>
+	<br>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Описание</mat-label>
+		<textarea matInput formControlName="description"></textarea>
+	</mat-form-field>
+	<br>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Телефон</mat-label>
+		<input matInput formControlName="phone">
+	</mat-form-field>
+	<br>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Адрес</mat-label>
+		<textarea matInput formControlName="address"></textarea>
+	</mat-form-field>
+	<h2>Доставка</h2>
+	<div formArrayName="delivery">
+		<ng-container *ngFor="let deliveryForm of deliveryFormArrays.controls; let i = index">
+			<div [formGroupName]="i">
+				<mat-form-field appearance="fill" class="full-width">
+					<mat-label>Тип доставки</mat-label>
+					<mat-select formControlName="type">
+						<mat-option *ngFor="let type of deliveryTypes" value="option">
+							{{ type }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill" class="full-width">
+					<mat-label>Цена</mat-label>
+					<input matInput formControlName="cost">
+				</mat-form-field>
+				<mat-form-field appearance="fill" class="full-width">
+					<mat-label>Описание доставки</mat-label>
+					<input matInput formControlName="description">
+				</mat-form-field>
+			</div>
+			<button
+				mat-raised-button
+				(click)="addNewDeliveryInfo()"
+				color="primary"
+				class="button">
+
+				Добавить способ доставки
+			</button>
+		</ng-container>
+	</div>
+	<button mat-raised-button color="primary" class="button">Сохранить</button>
+</form>

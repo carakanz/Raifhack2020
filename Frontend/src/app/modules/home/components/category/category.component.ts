@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SiteService } from '../../../core/services/site.service';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { Product } from '../../../../models/product';
 
 @Component({
 	selector: 'app-category',
@@ -20,5 +21,9 @@ export class CategoryComponent implements OnInit {
 					this.site.products.next(x);
 				});
 		});
+	}
+
+	public select(item: Product): void {
+		this.site.product.next(item);
 	}
 }

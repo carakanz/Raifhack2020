@@ -17,6 +17,7 @@ export class SiteService {
 	public readonly banner: ReplaySubject<any> = new ReplaySubject<Blob>(1);
 	public readonly products: ReplaySubject<Product[]> = new ReplaySubject<Product[]>(1);
 	public readonly categories: ReplaySubject<Category[]> = new ReplaySubject<Category[]>(1);
+	public readonly product: ReplaySubject<Product> = new ReplaySubject<Product>(1);
 
 	constructor(private readonly http: HttpClient, @Inject(API_URL) private readonly api: string) {
 		this.categories.next([
@@ -58,9 +59,7 @@ export class SiteService {
 		);
 	}
 
-	public buy(id: number): Observable<any> {
-		return of(true);
-	}
+	public buy(item: Product): void {}
 
 	public getLogo(): Observable<any> {
 		return this.site.pipe(

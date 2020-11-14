@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { ImageComponent } from './components/image/image.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { CategoryComponent } from './components/category/category.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
-	declarations: [HomeComponent, ImageComponent, BannerComponent, CategoryComponent],
+	declarations: [HomeComponent, ImageComponent, BannerComponent, CategoryComponent, ProductComponent],
 	imports: [CommonModule, HomeRoutingModule, SharedModule],
 })
 export class HomeModule {}

@@ -1,7 +1,14 @@
 <mat-toolbar color="primary">
-	<span class="logo-wrapper">
+	<div class="logo-wrapper">
 		<img [src]="logo" alt="">
-	</span>
+	</div>
+	<span class="example-spacer"></span>
+	<button mat-icon-button class="example-icon">
+		<mat-icon>add_shopping_cart</mat-icon>
+	</button>
+	<button mat-icon-button class="example-icon">
+		<mat-icon>person</mat-icon>
+	</button>
 </mat-toolbar>
 <div class="spinner" *ngIf="loader.isShown">
 	<mat-spinner></mat-spinner>

@@ -24,13 +24,13 @@ export class BasketComponent implements OnInit {
 
 	ngOnInit(): void {
 		const saved: string[] = JSON.parse(localStorage.getItem('basket'));
-		const n = Array.from(new Set(saved?.map((z) => Number(z))));
-		const obs = n.map((x) => this.site.getProduct(x).pipe(take(1)));
+		const n = Array.from(new Set(saved));
+		const obs = n.map((x) => this.site.getProduct(Number(x)).pipe(take(1)));
 
 		combineLatest(obs).subscribe((x) => {
 			this.site.basket.pipe(take(1)).subscribe((y) => {
 				console.log(y);
-				const m = x.filter((t) => !y.includes(t));
+				const m = x.filter((t) => !y.map((z) => z.id).includes(t.id));
 				this.site.basket.next([...y, ...m]);
 			});
 		});
@@ -49,14 +49,27 @@ export class BasketComponent implements OnInit {
 				map((x) => x.map((y) => y.id))
 			)
 			.subscribe((x) => {
-				this.site.buyEcom({
-					address: this.formGroup.value.address,
-					dateTime: this.formGroup.value.dateTime,
-					email: this.formGroup.value.email,
-					name: this.formGroup.value.name,
-					phone: this.formGroup.value.phone,
-					products: x,
-				});
+				this.site
+					.buyEcom({
+						address: this.formGroup.value.address,
+						dateTime: this.formGroup.value.dateTime,
+						email: this.formGroup.value.email,
+						name: this.formGroup.value.name,
+						phone: this.formGroup.value.phone,
+						products: x,
+					})
+					.pipe(take(1))
+					.subscribe();
 			});
+	}
+
+	public fill(): void {
+		this.formGroup.setValue({
+			name: 'Тестов Тест',
+			phone: '+79631231234',
+			address: 'Тестовая улица, д 5',
+			email: 'germanarutyunov@gmail.com',
+			dateTime: '2020-11-18T21:25:33.601Z',
+		});
 	}
 }

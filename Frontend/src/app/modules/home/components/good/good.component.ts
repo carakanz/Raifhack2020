@@ -21,6 +21,7 @@ export class GoodComponent implements OnInit {
 			phone: '',
 			address: '',
 			email: '',
+			dateTime: '',
 		});
 	}
 
@@ -44,4 +45,14 @@ export class GoodComponent implements OnInit {
 
 		return '';
 	};
+
+	public fill(): void {
+		this.formGroup.setValue({
+			name: 'Тестов Тест',
+			phone: '+79631231234',
+			address: 'Тестовая улица, д 5',
+			email: 'germanarutyunov@gmail.com',
+			dateTime: '2020-11-18T21:25:33.601Z',
+		});
+	}
 }

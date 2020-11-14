@@ -1,5 +1,5 @@
 export interface BuyResponse {
 	publicId: string;
 	amount: number;
-	orderId: number;
+	orderId: number | string;
 }

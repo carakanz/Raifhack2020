@@ -9,6 +9,14 @@ import { Site } from '../../../models/site';
 import { BuyRequest } from '../../../models/buy-request';
 import { BuyResponse } from '../../../models/buy-response';
 
+function uuidv4() {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = (Math.random() * 16) | 0,
+			v = c == 'x' ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
+	});
+}
+
 declare var PaymentPageSdk: any;
 
 @Injectable({
@@ -63,7 +71,7 @@ export class SiteService {
 		});
 		this.basket.subscribe((x) => {
 			if (x.length === 0) return;
-			localStorage.setItem('basket', JSON.stringify(new Set(x.map((y) => y.id))));
+			localStorage.setItem('basket', JSON.stringify(Array.from(new Set(x.map((y) => y.id)))));
 		});
 	}
 
@@ -98,51 +106,28 @@ export class SiteService {
 		return of({
 			publicId: '000003333328007-33328007',
 			amount: 200,
-			orderId: 1234,
+			orderId: uuidv4(),
 		});
 		// return this.post('Basket/Buy', request);
 	}
 
 	public buyEcom(request: BuyRequest): Observable<BuyResponse> {
-		const obs = of({
-			publicId: '000003333328007-33328007',
-			amount: 200,
-			orderId: 1234,
-		});
-		// const obs = this.post('Basket/Buy', request);
-
-		return obs.pipe(
+		return this.buy(request).pipe(
+			take(1),
 			tap(({ amount, orderId, publicId }) => {
 				const paymentPage = new PaymentPageSdk(publicId, {
 					url: 'https://test.ecom.raiffeisen.ru/pay',
 				});
-				paymentPage.replace({
+
+				const r = {
 					amount,
-					orderId,
-					successUrl:
-						'http://' +
-						window.location.host +
-						':' +
-						window.location.port +
-						'/payment/success?orderId=' +
-						'91700',
-					failUrl:
-						'http://' +
-						window.location.host +
-						':' +
-						window.location.port +
-						'/payment/success?orderId=' +
-						'91700',
-					extra: {
-						...request,
-					},
-					style: {
-						header: {
-							logo: this.logoSync,
-							titlePlace: 'right',
-						},
-					},
-				});
+					successUrl: 'http://' + window.location.host + '/payment/success?orderId=' + orderId,
+					failUrl: 'http://' + window.location.host + '/payment/error?orderId=' + orderId,
+					comment: 'Тестовая оплата',
+				};
+
+				console.log(r);
+				paymentPage.replace(r);
 			})
 		);
 	}

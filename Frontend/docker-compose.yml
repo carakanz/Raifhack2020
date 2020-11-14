@@ -8,6 +8,4 @@ services:
             args:
                 project: admin
         ports:
-        -   "4020:80"
-        environment:
-            - project=admin
+            - "8080:80"

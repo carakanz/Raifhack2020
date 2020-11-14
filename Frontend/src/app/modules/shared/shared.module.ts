@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RublePipe } from './pipes/ruble.pipe';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materialModules = [
 	MatCheckboxModule,
@@ -64,6 +65,7 @@ const materialModules = [
 	MatTableModule,
 	MatSortModule,
 	MatPaginatorModule,
+	MatNativeDateModule,
 ];
 
 @NgModule({

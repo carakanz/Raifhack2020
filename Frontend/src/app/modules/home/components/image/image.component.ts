@@ -14,6 +14,8 @@ export class ImageComponent implements OnInit {
 		});
 	}
 	public image: Blob;
+	@Input()
+	public imageClass: string;
 	constructor(private readonly site: SiteService) {}
 
 	ngOnInit(): void {}

@@ -8,9 +8,11 @@ import { ImageComponent } from './components/image/image.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductComponent } from './components/product/product.component';
+import { GoodComponent } from './components/good/good.component';
 
 @NgModule({
-	declarations: [HomeComponent, ImageComponent, BannerComponent, CategoryComponent, ProductComponent],
+	declarations: [HomeComponent, ImageComponent, BannerComponent, CategoryComponent, ProductComponent, GoodComponent],
 	imports: [CommonModule, HomeRoutingModule, SharedModule],
+	exports: [GoodComponent],
 })
 export class HomeModule {}

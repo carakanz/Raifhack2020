@@ -150,6 +150,7 @@ export class SiteService {
 							phone: '798981212',
 							address: 'Тестоввя улица, дом 5',
 							description: 'Медицина компетенций',
+							type: 'medicine',
 						};
 					case 'veryfood':
 						return {
@@ -157,6 +158,7 @@ export class SiteService {
 							phone: '798981212',
 							address: 'Тестоввя улица, дом 5',
 							description: 'Доставка вкусных обедов',
+							type: 'shop',
 						};
 				}
 			})

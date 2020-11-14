@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-end">
+	<button mat-icon-button mat-dialog-close>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
+
+<h2 mat-dialog-title>
+	{{ (site.product.asObservable() | async)?.name }}
+</h2>
+<div mat-dialog-content>
+	<ng-container [ngSwitch]="state">
+		<ng-container *ngSwitchDefault>
+			<div class="container">
+				<div class="row">
+					<div class="col-6">
+						<app-image [imageClass]="'product-image'" [id]="(site.product.asObservable() | async)?.image[0]"></app-image>
+					</div>
+					<div class="col-6 pl-2">
+						<h3 class="mat-display-1">
+							{{ (site.product.asObservable() | async)?.cost | ruble }}
+						</h3>
+						<p>
+							{{ (site.product.asObservable() | async)?.description }}
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 mt-4">
+						<form class="d-flex flex-column">
+							<mat-form-field appearance="outline">
+								<mat-label>ФИО</mat-label>
+								<input type="text" matInput>
+							</mat-form-field>
+							<mat-form-field appearance="outline">
+								<mat-label>Телефон</mat-label>
+								<input type="text" matInput>
+							</mat-form-field>
+							<mat-form-field appearance="outline">
+								<mat-label>Email</mat-label>
+								<input type="text" matInput>
+							</mat-form-field>
+							<mat-form-field appearance="outline">
+								<mat-label>Адрес</mat-label>
+								<input type="text" matInput>
+							</mat-form-field>
+						</form>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<ng-container *ngSwitchCase="'payment'">
+
+		</ng-container>
+	</ng-container>
+</div>
+<div mat-dialog-actions>
+	<button mat-button color="primary" (click)="pay()" *ngIf="state === 'initial'">Оплатить</button>
+</div>

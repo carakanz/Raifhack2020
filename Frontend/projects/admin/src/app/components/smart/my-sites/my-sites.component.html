@@ -10,16 +10,17 @@
 				<mat-card-subtitle>{{ site.type }}, расположен по адресу {{ site.slug }}</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-actions class="with-padding">
-				<button mat-icon-button color="primary">
+				<button mat-icon-button color="primary" [routerLink]="['/edit', site.siteId]">
 					<mat-icon>edit</mat-icon>
 				</button>
-				<button mat-icon-button color="primary">
+				<button mat-icon-button color="primary" (click)="deleteProduct(site)">
 					<mat-icon>delete</mat-icon>
 				</button>
 			</mat-card-actions>
 		</mat-card>
 		<mat-card [routerLink]="['/create']">
-			<img mat-card-image src="../../../../assets/plus-sign.png" class="image">
+			<mat-card-content class="add">Добавить сайт</mat-card-content>
+<!--			<img mat-card-image src="../../../../assets/plus-sign.png" class="image">-->
 		</mat-card>
 	</div>
 </ng-container>

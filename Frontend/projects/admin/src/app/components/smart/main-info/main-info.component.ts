@@ -1,6 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormsConfig} from "../create-and-edit-site/config/forms.config";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {SitesService} from "../../../services/sites/sites.service";
+import {tap} from "rxjs/operators";
 
 @Component({
 	selector: 'app-main-info',
@@ -19,10 +22,17 @@ export class MainInfoComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private cdRef: ChangeDetectorRef,
+		private sitesService: SitesService,
+		private activatedRoute: ActivatedRoute,
 	) {
 	}
 
 	ngOnInit(): void {
+		this.activatedRoute.paramMap
+			.pipe(
+				tap(console.log),
+			).subscribe();
+
 		this.mainForm = this.formBuilder.group({
 			...FormsConfig.siteMainForm,
 			delivery: this.formBuilder.array([

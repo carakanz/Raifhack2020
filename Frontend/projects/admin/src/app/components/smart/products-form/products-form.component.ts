@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {SitesService} from "../../../services/sites/sites.service";
 import {Observable} from "rxjs";
 import {CategoriesInterface} from "../../../services/sites/interfaces/categories.interface";
 import {ProductInterface} from "../../../services/sites/interfaces/product.interface";
+import {ProductFormDialogComponent} from "./product-form-dialog/product-form-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-products-form',
@@ -11,32 +12,31 @@ import {ProductInterface} from "../../../services/sites/interfaces/product.inter
 	styleUrls: ['./products-form.component.scss']
 })
 export class ProductsFormComponent implements OnInit {
-	public form: FormGroup;
 	public categories$: Observable<CategoriesInterface[]>;
 	public products$: Observable<ProductInterface[]>
-	public isFormOpened: boolean;
 
 	constructor(
-		private formBuilder: FormBuilder,
 		private sitesService: SitesService,
+		public dialog: MatDialog,
 	) {}
 
 	ngOnInit(): void {
-		this.form = this.formBuilder.group({
-			categories: '',
-			name: '',
-			cost: '',
-			description: '',
-		});
-
-		this.categories$ = this.sitesService.getCategories$();
 		this.products$ = this.sitesService.getProducts$();
 	}
 
-	public onEditClick(product: ProductInterface): void {
-		this.form.patchValue(product);
+	public openDialog(product?: ProductInterface): void {
+		const dialogRef = this.dialog.open(ProductFormDialogComponent, {
+			width: '500px',
+			data: product
+		});
 
-		this.isFormOpened = true;
+		dialogRef.afterClosed().subscribe(result => {
+			this.sitesService.updateProducts(result);
+		});
+	}
+
+	public deleteProduct(product: ProductInterface): void {
+		this.sitesService.deleteProduct(product)
 	}
 
 }

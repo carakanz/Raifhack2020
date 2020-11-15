@@ -41,6 +41,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { MainInfoComponent } from './components/smart/main-info/main-info.component';
 import { CategoriesFormsComponent } from './components/smart/categories-forms/categories-forms.component';
 import { ProductsFormComponent } from './components/smart/products-form/products-form.component';
+import { ProductFormDialogComponent } from './components/smart/products-form/product-form-dialog/product-form-dialog.component';
 
 const materialModules = [
 	MatCheckboxModule,
@@ -83,7 +84,8 @@ const materialModules = [
 		CreateAndEditSiteComponent,
 		MainInfoComponent,
 		CategoriesFormsComponent,
-		ProductsFormComponent
+		ProductsFormComponent,
+		ProductFormDialogComponent
 	],
 	imports: [
 		BrowserModule,

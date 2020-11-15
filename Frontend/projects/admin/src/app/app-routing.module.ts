@@ -4,9 +4,9 @@ import {MySitesComponent} from "./components/smart/my-sites/my-sites.component";
 import {CreateAndEditSiteComponent} from "./components/smart/create-and-edit-site/create-and-edit-site.component";
 
 const routes: Routes = [
+	{ path: '',   redirectTo: '/main', pathMatch: 'full' },
 	{
-		path: '',
-		component: MySitesComponent,
+		path: 'main', component: MySitesComponent,
 	},
 	{
 		path: 'create',

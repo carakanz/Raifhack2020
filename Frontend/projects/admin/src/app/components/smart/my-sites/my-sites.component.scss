@@ -9,7 +9,16 @@
 	grid-gap: 10px;
 }
 
-.card {
+.add {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+}
+
+.image  {
+	width: 30%;
 }
 
 .with-padding {

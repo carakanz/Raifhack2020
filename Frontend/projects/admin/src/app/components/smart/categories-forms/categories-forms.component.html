@@ -1,16 +1,21 @@
-<div [formGroup]="categoriesForm">
-	<ng-container *ngFor="let categoryForm of categoriesFormArray.controls; let i = index">
-		<div [formGroupName]="i">
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Цена</mat-label>
-				<input matInput formControlName="name" />
-			</mat-form-field>
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Описание доставки</mat-label>
-				<input matInput formControlName="slug" />
-			</mat-form-field>
-		</div>
-	</ng-container>
-	<button mat-raised-button color="primary">Добавить категорию</button>
-	<button mat-raised-button color="primary">Сохранить</button>
+<div [formGroup]="categoriesForm" class="form">
+	<div formArrayName="categories">
+		<ng-container *ngFor="let categoryForm of categoriesFormArray.controls; let i = index">
+			<div [formGroupName]="i">
+				<mat-form-field appearance="fill" class="full-width">
+					<mat-label>Имя</mat-label>
+					<input matInput formControlName="name">
+				</mat-form-field>
+				<br>
+				<mat-form-field appearance="fill" class="full-width">
+					<mat-label>Путь</mat-label>
+					<input matInput formControlName="slug">
+				</mat-form-field>
+			</div>
+		</ng-container>
+	</div>
+	<div class="buttons">
+		<button mat-raised-button (click)="createNewCategory()" color="primary">Добавить категорию</button>
+		<button mat-raised-button color="primary">Сохранить</button>
+	</div>
 </div>

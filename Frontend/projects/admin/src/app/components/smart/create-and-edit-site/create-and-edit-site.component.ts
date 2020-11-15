@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormsConfig } from './config/forms.config';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {map, switchMap} from "rxjs/operators";
+import {SitesService} from "../../../services/sites/sites.service";
 
 @Component({
 	selector: 'app-create-and-edit-site',
@@ -8,10 +9,22 @@ import { FormsConfig } from './config/forms.config';
 	styleUrls: ['./create-and-edit-site.component.scss'],
 })
 export class CreateAndEditSiteComponent implements OnInit {
-	public mainForm: FormGroup;
-	public categoryForm: FormGroup;
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private router: Router,
+		private sitesService: SitesService,
+	) {
+	}
 
-	constructor(private formBuilder: FormBuilder) {}
+	public ngOnInit(): void {
+		this.activatedRoute.paramMap
+			.pipe(
+				map((param) => param.get('id')),
+				switchMap(id => this.sitesService.getSiteInfo$(+id)),
+			);
+	}
 
-	ngOnInit(): void {}
+	public toMain(): void {
+		this.router.navigate(['/', 'main']);
+	}
 }

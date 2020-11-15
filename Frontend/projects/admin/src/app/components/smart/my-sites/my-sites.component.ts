@@ -17,6 +17,10 @@ export class MySitesComponent implements OnInit {
 		this.sites$ = this.sitesService.getSites$();
 	}
 
+	public deleteProduct(site: SiteInterface): void {
+		this.sitesService.deleteSite(site);
+	}
+
 	public trackById(index: number, { siteId }: SiteInterface): number {
 		return siteId;
 	}

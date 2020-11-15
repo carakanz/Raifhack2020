@@ -1,24 +1,29 @@
-<form [formGroup]="form">
-	<mat-form-field appearance="fill" class="full-width">
-		<mat-label>Категория</mat-label>
-		<mat-select formControlName="categories">
-			<mat-option *ngFor="let category of categories$ | async" value="option">
-				{{ category.name }}
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
-	<br />
-	<mat-form-field appearance="fill" class="full-width">
-		<mat-label>Название</mat-label>
-		<input matInput formControlName="name" />
-	</mat-form-field>
-	<br />
-	<mat-form-field appearance="fill" class="full-width">
-		<mat-label>Цена</mat-label>
-		<input matInput formControlName="cost" />
-	</mat-form-field>
-	<mat-form-field appearance="fill" class="full-width">
-		<mat-label>Описание</mat-label>
-		<input matInput formControlName="description" />
-	</mat-form-field>
-</form>
+<div class="container">
+	<mat-card>
+		<mat-card-content (click)="openDialog()" class="add">
+			Добавить продукт
+		</mat-card-content>
+	</mat-card>
+	<ng-container *ngIf="products$ | async as products">
+		<mat-card *ngFor="let product of products" class="example-card">
+			<mat-card-header>
+				<mat-card-title>{{ product.name }}</mat-card-title>
+				<mat-card-subtitle>Категория: {{ product.categories.name }}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content class="with-margin">
+				<p>
+					Описание: {{ product.description }}
+				</p>
+				<div>Цена: {{ product.cost }}</div>
+			</mat-card-content>
+			<mat-card-actions class="with-margin">
+				<button mat-icon-button (click)="openDialog(product)" color="primary">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button (click)="deleteProduct(product)" color="primary">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</ng-container>
+</div>

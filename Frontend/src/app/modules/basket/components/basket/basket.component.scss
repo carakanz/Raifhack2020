@@ -1,0 +1,10 @@
+.basket-image {
+	height: 40px !important;
+	width: 60px !important;
+}
+
+.delete-btn {
+	&:hover {
+		cursor: pointer;
+	}
+}

@@ -1,0 +1,12 @@
+<h2 class="mat-display-1 text-center mb-4">Выберите шаблон</h2>
+<p class="text-center">Выберите, как должен выглядеть ваш будущий онлайн бизнес</p>
+<form class="d-flex flex-column" [formGroup]="formGroup">
+	<mat-form-field appearance="outline">
+		<mat-label>Шаблон</mat-label>
+		<mat-select formControlName="type">
+			<mat-option value="shop">Интернет магазин</mat-option>
+			<mat-option value="medicine">Частная клиника</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<button mat-button type="submit" color="accent" (click)="submit()">Дальше!</button>
+</form>

@@ -1,21 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {MySitesComponent} from "./components/smart/my-sites/my-sites.component";
-import {CreateAndEditSiteComponent} from "./components/smart/create-and-edit-site/create-and-edit-site.component";
 
 const routes: Routes = [
-	{ path: '',   redirectTo: '/main', pathMatch: 'full' },
 	{
-		path: 'main', component: MySitesComponent,
+		path: '',
+		loadChildren: () => import('./modules/dashboard/dashboard.module').then((x) => x.DashboardModule),
 	},
 	{
-		path: 'create',
-		component: CreateAndEditSiteComponent,
+		path: 'business',
+		loadChildren: () => import('./modules/business/business.module').then((x) => x.BusinessModule),
 	},
-	{
-		path: `edit/:id`,
-		component: CreateAndEditSiteComponent
-	}
 ];
 
 @NgModule({

@@ -1,0 +1,38 @@
+.spinner {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(#000, .2);
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.footer {
+	background-color: #673ab7;
+	color: white;
+}
+
+.content {
+	min-height: calc(100vh - 200px);
+}
+
+.logo-wrapper {
+	height: 64px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	img {
+		height: 50px;
+		display: block;
+	}
+}
+
+.example-spacer {
+	flex: 1 1 auto;
+}

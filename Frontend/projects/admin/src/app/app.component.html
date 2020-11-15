@@ -1,3 +1,32 @@
+<mat-toolbar>
+	<div class="logo-wrapper" routerLink="/">
+		<img src="/assets/mango.png" alt="">
+	</div>
+	<a mat-button routerLink="/">Главная</a>
+	<a mat-button routerLink="/">Инструменты</a>
+	<span class="example-spacer"></span>
+	<button mat-icon-button class="example-icon">
+		<mat-icon>person</mat-icon>
+	</button>
+</mat-toolbar>
 
+<div class="content">
+	<router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
+<div class="footer py-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<div class="logo-wrapper align-items-start" routerLink="/">
+					<div class="d-flex flex-row align-items-center"><img src="/assets/mango.png" alt=""> <div class="ml-2">It's a Mango</div></div>
+				</div>
+			</div>
+			<div class="col-6 d-flex align-items-center justify-content-end">
+				<span>Все права не защищены</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<app-loader *ngIf="loader.isShown"></app-loader>

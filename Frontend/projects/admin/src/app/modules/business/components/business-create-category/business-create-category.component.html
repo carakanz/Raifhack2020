@@ -1,13 +1,15 @@
 <h2 class="mat-display-1 text-center mb-4" (click)="fill()">Создайте категорию</h2>
-<p class="text-center" (click)="fill1()">Создайте категорию {{ (data.create.asObservable() | async)?.type === 'medicine' ? 'услуг' : 'товаров' }}</p>
+<p class="text-center" (click)="fill1()">
+	Создайте категорию {{ (data.create.asObservable() | async)?.type === 'medicine' ? 'услуг' : 'товаров' }}
+</p>
 <form class="d-flex flex-column" [formGroup]="formGroup">
 	<mat-form-field appearance="outline">
 		<mat-label>Название</mat-label>
-		<input type="text" matInput formControlName="name">
+		<input type="text" matInput formControlName="name" />
 	</mat-form-field>
 	<mat-form-field appearance="outline">
 		<mat-label>И на латинице</mat-label>
-		<input type="text" matInput formControlName="slug">
+		<input type="text" matInput formControlName="slug" />
 	</mat-form-field>
 	<button mat-button type="submit" color="accent" (click)="submit()">И последний шаг!</button>
 </form>

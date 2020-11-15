@@ -1,22 +1,22 @@
 .banner-container {
 	width: 100vw;
-	max-width:100%;
+	max-width: 100%;
 	height: 400px;
 	position: relative;
 }
 
 .banner-image-overlay {
-	background-color: rgba(#673ab7, .2);
+	background-color: rgba(#673ab7, 0.2);
 }
 
 .banner-image-overlay,
 .banner-image-wrapper {
 	img {
 		width: 100vw;
-		max-width:100%;
+		max-width: 100%;
 	}
 	background-size: cover !important;
-	max-width:100%;
+	max-width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;

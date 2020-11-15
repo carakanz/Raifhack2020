@@ -1,0 +1,24 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-api-deployment
+  namespace: raifhack
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: external-api-deployment
+  template:
+    metadata:
+      namespace: raifhack
+      labels:
+        app: external-api-deployment
+    spec:
+      containers:
+        - name: external-api-deployment
+          image: localhost:5000/externalapi:latest
+          imagePullPolicy: Always
+          ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP

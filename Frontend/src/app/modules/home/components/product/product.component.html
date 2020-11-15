@@ -27,27 +27,27 @@
 				<form class="d-flex flex-column" [formGroup]="formGroup" *ngIf="state === 'initial'">
 					<mat-form-field appearance="outline">
 						<mat-label>ФИО</mat-label>
-						<input type="text" matInput formControlName="name">
+						<input type="text" matInput formControlName="name" />
 					</mat-form-field>
 					<mat-form-field appearance="outline">
 						<mat-label>Телефон</mat-label>
-						<input type="text" matInput formControlName="phone">
+						<input type="text" matInput formControlName="phone" />
 					</mat-form-field>
 					<mat-form-field appearance="outline">
 						<mat-label>Email</mat-label>
-						<input type="text" matInput formControlName="email">
+						<input type="text" matInput formControlName="email" />
 					</mat-form-field>
 					<mat-form-field appearance="outline">
 						<mat-label>Дата</mat-label>
-						<input type="text" matInput [matDatepicker]="picker" formControlName="dateTime">
+						<input type="text" matInput [matDatepicker]="picker" formControlName="dateTime" />
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
 					</mat-form-field>
 				</form>
 				<div class="d-flex align-items-center flex-column" *ngIf="state === 'success'">
-					<img src="/assets/icon-success.png"	style="height: 80px; width: 80px;" alt="">
+					<img src="/assets/icon-success.png" style="height: 80px; width: 80px" alt="" />
 					<h1 class="mat-headline my-4">Вы успешно записались!</h1>
-					<p>Номер вашего заказа: {{orderId}}</p>
+					<p>Номер вашего заказа: {{ orderId }}</p>
 					<button mat-button color="primary" (click)="overlay.close()" class="mt-4">Готово</button>
 				</div>
 			</div>

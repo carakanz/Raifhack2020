@@ -8,7 +8,7 @@ import {DetailedSiteInterface} from "./interfaces/detailed-site.interface";
 import {DeliveryInterface} from "./interfaces/delivery.interface";
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class SitesService {
 	private sites$ = new BehaviorSubject<SiteInterface[]>([

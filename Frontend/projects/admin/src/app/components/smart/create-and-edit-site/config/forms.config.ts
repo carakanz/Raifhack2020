@@ -1,4 +1,4 @@
-import {Validators} from "@angular/forms";
+import { Validators } from '@angular/forms';
 
 export class FormsConfig {
 	public static get siteMainForm() {
@@ -9,7 +9,7 @@ export class FormsConfig {
 			description: '',
 			phone: '',
 			address: '',
-		}
+		};
 	}
 
 	public static get deliveryInfo() {
@@ -17,7 +17,7 @@ export class FormsConfig {
 			type: '',
 			cost: '',
 			description: '',
-		}
+		};
 	}
 
 	public static get siteTypes() {
@@ -25,6 +25,6 @@ export class FormsConfig {
 	}
 
 	public static get deliveryTypes() {
-		return ['Самовывоз', 'Курьер', 'Почта']
+		return ['Самовывоз', 'Курьер', 'Почта'];
 	}
 }

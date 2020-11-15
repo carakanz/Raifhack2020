@@ -1,8 +1,6 @@
 <div class="banner-container d-flex align-items-center">
-	<div class="banner-image-wrapper" [ngStyle]="{ 'background': 'url(' + banner + ') no-repeat center center' }">
-	</div>
-	<div class="banner-image-overlay">
-	</div>
+	<div class="banner-image-wrapper" [ngStyle]="{ background: 'url(' + banner + ') no-repeat center center' }"></div>
+	<div class="banner-image-overlay"></div>
 	<div class="container">
 		<div class="row">
 			<div class="col-12 d-flex flex-column align-items-center justify-content-center">
@@ -10,7 +8,7 @@
 					{{ (site?.currentSite?.asObservable() | async)?.description }}
 				</h1>
 				<div class="banner-logo-wrapper">
-					<img [src]="site?.logo?.asObservable() | async" alt="">
+					<img [src]="site?.logo?.asObservable() | async" alt="" />
 				</div>
 			</div>
 		</div>

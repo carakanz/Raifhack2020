@@ -9,7 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
 	selector: 'app-products-form',
 	templateUrl: './products-form.component.html',
-	styleUrls: ['./products-form.component.scss']
+	styleUrls: ['./products-form.component.scss'],
 })
 export class ProductsFormComponent implements OnInit {
 	public categories$: Observable<CategoriesInterface[]>;
@@ -38,5 +38,4 @@ export class ProductsFormComponent implements OnInit {
 	public deleteProduct(product: ProductInterface): void {
 		this.sitesService.deleteProduct(product)
 	}
-
 }

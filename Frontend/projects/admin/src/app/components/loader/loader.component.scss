@@ -5,7 +5,7 @@
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(black, .2);
+	background-color: rgba(black, 0.2);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -16,30 +16,23 @@
 	}
 }
 
-@keyframes heartbeat
-{
-	0%
-	{
-		transform: scale( .75 );
+@keyframes heartbeat {
+	0% {
+		transform: scale(0.75);
 	}
-	20%
-	{
-		transform: scale( 1 );
+	20% {
+		transform: scale(1);
 	}
-	40%
-	{
-		transform: scale( .75 );
+	40% {
+		transform: scale(0.75);
 	}
-	60%
-	{
-		transform: scale( 1 );
+	60% {
+		transform: scale(1);
 	}
-	80%
-	{
-		transform: scale( .75 );
+	80% {
+		transform: scale(0.75);
 	}
-	100%
-	{
-		transform: scale( .75 );
+	100% {
+		transform: scale(0.75);
 	}
 }

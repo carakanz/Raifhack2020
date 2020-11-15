@@ -29,7 +29,6 @@ export class BasketComponent implements OnInit {
 
 		combineLatest(obs).subscribe((x) => {
 			this.site.basket.pipe(take(1)).subscribe((y) => {
-				console.log(y);
 				const m = x.filter((t) => !y.map((z) => z.id).includes(t.id));
 				this.site.basket.next([...y, ...m]);
 			});

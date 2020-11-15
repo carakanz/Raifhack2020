@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-business-create-category',
@@ -41,8 +42,23 @@ export class BusinessCreateCategoryComponent implements OnInit {
 
 	public submit(): void {
 		this.data.category.next(this.formGroup.value);
-		this.router.navigate(['../products'], {
-			relativeTo: this.activated,
+		this.data.create.pipe(take(1)).subscribe((x) => {
+			this.data
+				.createCategory({
+					...this.formGroup.value,
+					siteId: x.id,
+				})
+				.pipe(take(1))
+				.subscribe((y) => {
+					console.log(y);
+					this.data.category.next({
+						...this.formGroup.value,
+						id: y.id,
+					});
+					this.router.navigate(['../products'], {
+						relativeTo: this.activated,
+					});
+				});
 		});
 	}
 }

@@ -22,10 +22,10 @@ export class CategoryComponent implements OnInit {
 	ngOnInit(): void {
 		this.activated.paramMap.subscribe((x) => {
 			this.site
-				.getCategory(x.get('slug'))
+				.getCategory(Number(x.get('slug')))
 				.pipe(take(1))
 				.subscribe((y) => {
-					this.site.products.next(y);
+					this.site.products.next(y.products);
 				});
 		});
 	}

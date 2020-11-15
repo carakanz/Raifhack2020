@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 				take(1)
 			)
 			.subscribe((x) => {
-				this.router.navigate(['categories', x[0].slug]);
+				this.router.navigate(['categories', x[0].id]);
 			});
 	}
 }

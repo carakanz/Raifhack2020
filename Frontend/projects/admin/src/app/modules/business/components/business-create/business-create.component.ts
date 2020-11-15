@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../../../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-business-create',
@@ -52,9 +53,20 @@ export class BusinessCreateComponent implements OnInit {
 	}
 
 	public submit(): void {
-		this.data.create.next(this.formGroup.value);
-		this.router.navigate(['../template'], {
-			relativeTo: this.activated,
+		this.data.create.next({
+			...this.formGroup.value,
 		});
+		this.data
+			.createSite(this.formGroup.value)
+			.pipe(take(1))
+			.subscribe((x) => {
+				this.data.create.next({
+					...this.formGroup.value,
+					id: x.id,
+				});
+				this.router.navigate(['../template'], {
+					relativeTo: this.activated,
+				});
+			});
 	}
 }

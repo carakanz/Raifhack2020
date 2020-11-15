@@ -6,6 +6,7 @@
     "start": "ng serve",
     "start:admin": "ng serve --project=admin",
     "start:all": "run-p \"start -- --project={1}\" \"start -- --project={2}\" \"start -- --project={3}\" -- \"admin\" \"veryfood\" \"medsi\"",
+    "start:admin+veryfood": "run-p \"start -- --project={1}\" \"start -- --project={2}\" -- \"admin\" \"veryfood\"",
     "build": "ng build",
     "build:admin": "ng build --project=admin",
     "test": "ng test",

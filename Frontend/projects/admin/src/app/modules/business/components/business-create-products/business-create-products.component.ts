@@ -29,7 +29,7 @@ export class BusinessCreateProductsComponent implements OnInit {
 	public fill(): void {
 		this.formGroup.setValue({
 			name: 'Борщ с пампушками',
-			cost: '100',
+			cost: 100,
 			description: 'Лучший борщ в вашей жизни',
 		});
 	}
@@ -43,9 +43,19 @@ export class BusinessCreateProductsComponent implements OnInit {
 	}
 
 	public submit(): void {
-		this.data.category.next(this.formGroup.value);
-		this.data.create.pipe(take(1)).subscribe((x) => {
-			window.open('http://' + x.slug + '.' + this.baseDomain, '_blank');
+		this.data.category.pipe(take(1)).subscribe((x) => {
+			this.data
+				.createProduct({
+					...this.formGroup.value,
+					cost: Number(this.formGroup.value.cost) * 100,
+					categoryId: x.id,
+				})
+				.pipe(take(1))
+				.subscribe(() => {
+					this.data.create.pipe(take(1)).subscribe((y) => {
+						window.open('http://' + y.slug + '.' + this.baseDomain, '_blank');
+					});
+				});
 		});
 	}
 }

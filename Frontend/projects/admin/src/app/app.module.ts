@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
 import { LoaderComponent } from './components/loader/loader.component';
-import { BASE_DOMAIN } from './tokens';
+import { API_URL, BASE_DOMAIN } from './tokens';
 
 @NgModule({
 	declarations: [AppComponent, LoaderComponent],
@@ -24,6 +24,10 @@ import { BASE_DOMAIN } from './tokens';
 		{
 			provide: BASE_DOMAIN,
 			useValue: 'localhost:4200',
+		},
+		{
+			provide: API_URL,
+			useValue: 'http://a8a60a5d0ba8.sn.mynetname.net/api/admin',
 		},
 	],
 	bootstrap: [AppComponent],

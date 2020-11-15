@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { API_URL } from '../tokens/api-url';
 import { Category } from '../../../models/category';
 import { Product } from '../../../models/product';
@@ -43,29 +43,29 @@ export class SiteService {
 			switch (x) {
 				case 'medsi':
 					this.banner.next('https://k50-a.akamaihd.net/k50/medsi/bg.jpg');
-					this.categories.next([
-						{
-							name: 'Вакцинация',
-							slug: 'first',
-						},
-						{
-							name: 'Стоматология',
-							slug: 'second',
-						},
-					]);
+					// this.categories.next([
+					// 	{
+					// 		name: 'Вакцинация',
+					// 		slug: 'first',
+					// 	},
+					// 	{
+					// 		name: 'Стоматология',
+					// 		slug: 'second',
+					// 	},
+					// ]);
 					break;
 				case 'veryfood':
 					this.banner.next('http://veryfood.ru/images/b0.jpg');
-					this.categories.next([
-						{
-							name: 'Первое',
-							slug: 'first',
-						},
-						{
-							name: 'Второе',
-							slug: 'second',
-						},
-					]);
+					// this.categories.next([
+					// 	{
+					// 		name: 'Первое',
+					// 		slug: 'first',
+					// 	},
+					// 	{
+					// 		name: 'Второе',
+					// 		slug: 'second',
+					// 	},
+					// ]);
 					break;
 			}
 		});
@@ -150,52 +150,52 @@ export class SiteService {
 		return this.get('category');
 	}
 
-	public getCategory(slug: string): Observable<Product[]> {
-		return of([
-			{
-				id: 1,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-			{
-				id: 2,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-			{
-				id: 3,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-			{
-				id: 4,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-			{
-				id: 5,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-			{
-				id: 6,
-				name: 'Тестовое название',
-				description: 'Краткое описание',
-				cost: 10000,
-				image: [1],
-			},
-		]);
-		// return this.get('category/' + slug);
+	public getCategory(id: number): Observable<Category> {
+		// return of([
+		// 	{
+		// 		id: 1,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// 	{
+		// 		id: 2,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// 	{
+		// 		id: 3,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// 	{
+		// 		id: 4,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// 	{
+		// 		id: 5,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// 	{
+		// 		id: 6,
+		// 		name: 'Тестовое название',
+		// 		description: 'Краткое описание',
+		// 		cost: 10000,
+		// 		image: [1],
+		// 	},
+		// ]);
+		return this.get('category/get/' + id).pipe(tap((x) => this.products.next(x.products)));
 	}
 
 	public getImage(id: number): Observable<any> {
@@ -205,41 +205,47 @@ export class SiteService {
 					case 'medsi':
 						return 'https://static.irk.ru/media/img/site/gallery/30474/1c299f89-8347-4c73-b462-2f309da635fd_jpg_800x600_x-False_q85.jpg';
 					case 'veryfood':
-						return 'https://lh3.googleusercontent.com/proxy/LoBje7qCPs_R7MarYXCYKBROPxdHSlEIgqU-m7J6Jq5k_kMgqCUV53ac1Yirjnj1VTjC-52zsD4zW3kXUsu3W2THac-VlehzRtPBZ3GBKiB4i1DsVphPMR7Ch-AvF_Xvw04';
+						return 'https://eda.ru/img/eda/1200x-i/s2.eda.ru/StaticContent/Photos/120213174921/1202131749503/p_O.jpg';
 				}
 			})
 		);
 		// return this.get('image/' + id, { responseType: 'blob' });
 	}
 	public getSite(): Observable<any> {
-		return this.site.pipe(
-			map((x) => {
-				switch (x) {
-					case 'medsi':
-						return {
-							name: 'МЕДСИ',
-							phone: '798981212',
-							address: 'Тестоввя улица, дом 5',
-							description: 'Медицина компетенций',
-							type: 'medicine',
-						};
-					case 'veryfood':
-						return {
-							name: 'Veryfood',
-							phone: '798981212',
-							address: 'Тестоввя улица, дом 5',
-							description: 'Доставка вкусных обедов',
-							type: 'shop',
-						};
-				}
-			})
-		);
-
 		// return this.site.pipe(
-		// 	take(1),
-		// 	switchMap((x) => {
-		// 		return this.get('Sites/get/' + x);
+		// 	map((x) => {
+		// 		switch (x) {
+		// 			case 'medsi':
+		// 				return {
+		// 					name: 'МЕДСИ',
+		// 					phone: '798981212',
+		// 					address: 'Тестоввя улица, дом 5',
+		// 					description: 'Медицина компетенций',
+		// 					type: 'medicine',
+		// 				};
+		// 			case 'veryfood':
+		// 				return {
+		// 					name: 'Veryfood',
+		// 					phone: '798981212',
+		// 					address: 'Тестоввя улица, дом 5',
+		// 					description: 'Доставка вкусных обедов',
+		// 					type: 'shop',
+		// 				};
+		// 		}
 		// 	})
 		// );
+
+		return this.site.pipe(
+			take(1),
+			switchMap((x) => {
+				return this.get('Sites/get/' + x).pipe(
+					take(1),
+					tap((y) => {
+						this.currentSite.next(y);
+						this.categories.next(y.categories);
+					})
+				);
+			})
+		);
 	}
 }

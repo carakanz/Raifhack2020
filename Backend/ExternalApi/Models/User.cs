@@ -11,6 +11,7 @@ namespace ExternalApi.Models
     {
         [Key]
         public int Id { get; set; }
+        public string PublicId { get; set; }
         public ICollection<Site> Sites { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,73 +24,97 @@ namespace ExternalApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("all")]
-        public IEnumerable<Models.Category> All()
-        {
-            return new Models.Category[]
-                {
-                    new Models.Category
-                    {
-                        Id = 0,
-                        Name = "Первое",
-                        Slug = "First",
-                    },
-                    new Models.Category
-                    {
-                        Id = 1,
-                        Name = "Второе",
-                        Slug = "Second",
-                    },
-                };
-        }
-
         [HttpGet]
         [Route("get/{id}")]
         [Route("/api/Category/get/{id}")]
-        public async Task<Models.Category> Get(int id)
+        public async Task<ActionResult<Models.Category>> Get(int id)
         {
-            return new Models.Category
+            var category = await _context.Categories
+                .Where(c => c.Id == id)
+                .Include(c => c.Products)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+            if (category is null)
             {
-                Id = 0,
-                Name = "Первое",
-                Slug = "First",
-                Products = new Models.Product[]
-                {
-                    new Models.Product
-                    {
-                        Categories = null,
-                        Id = 0,
-                        Cost = 10000,
-                        Description = "лук, томат, огурцы соленые, картофель, маслины, курица, сосиски, свинина",
-                        Name = "Солянка мясная"
-                    },
-                    new Models.Product
-                    {
-                        Categories = null,
-                        Id = 1,
-                        Cost = 10000,
-                        Description = "Морковь, лук, лапша, курица, помидоры",
-                        Name = "Суп-лапша \"По-Казачьи\""
-                    }
-                }
-            };
-        }
-
-        [HttpPost("Create")]
-        public async Task<Models.Category> Create(Models.Category category)
-        {
+                return NotFound("Category not found");
+            }
             return category;
         }
 
-        [HttpPut("change")]
-        public async Task<ActionResult> Change(Models.Category site)
+        public record CategoryCreateResponse(
+            [Required][MinLength(3)] string Slug,
+            [Required] string Name,
+            [Required] int SiteId);
+
+        [HttpPost("Create")]
+        public async Task<ActionResult<Models.Category>> Create(CategoryCreateResponse response)
         {
+            using var transaction = _context.Database.BeginTransaction();
+            var user = new Models.User { Id = 1 };
+            _context.Attach(user);
+
+            var site = await _context
+                .Sites
+                .Where(s => s.Id == response.SiteId)
+                .Include(s => s.Categories)
+                .FirstOrDefaultAsync();
+            if (site is null)
+            {
+                return NotFound("Site not exist");
+            }
+
+            if (!site.Categories.Any(c => c.Slug == response.Slug))
+            {
+                return BadRequest("Exist slug");
+            }
+
+            var category = new Models.Category
+            {
+                Name = response.Name,
+                Slug = response.Slug,
+                Site = site,
+            };
+
+            _context.Categories.Add(category);
+
+            await _context.SaveChangesAsync();
+            transaction.Commit();
+            return category;
+        }
+
+        public record CategoryChangeResponse(
+            [Required] int Id,
+            [Required] string Name);
+
+        [HttpPut("change")]
+        public async Task<ActionResult> Change(CategoryChangeResponse response)
+        {
+            var user = new Models.User { Id = 1 };
+            _context.Attach(user);
+
+            var category = await _context
+                .Categories
+                .Where(s => s.Id == response.Id).FirstOrDefaultAsync();
+            if (category is null)
+            {
+                return NotFound("Category not found");
+            }
+            category.Name = response.Name;
+            await _context.SaveChangesAsync();
             return new OkResult();
         }
 
         [HttpDelete("delete")]
         public async Task<ActionResult> Delete(int id)
         {
+            var category = await _context
+                .Categories
+                .Where(s => s.Id == id).FirstOrDefaultAsync();
+            if (category is null)
+            {
+                return NotFound("Category not found");
+            }
+            _context.Categories.Remove(category);
             return new OkResult();
         }
     }

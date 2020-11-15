@@ -9,6 +9,6 @@
 2) Выкачать последнего мастера 
 ```git pull```
 3) Смержить всё в мастера
-```git merge origin/front_master origin/back_master```
+```git merge origin/front_master origin/back_master origin/deploy```
 3) Загрузить мастра в репозиторий
 ```git push```

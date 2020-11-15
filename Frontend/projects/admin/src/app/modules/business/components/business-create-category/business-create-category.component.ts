@@ -35,8 +35,8 @@ export class BusinessCreateCategoryComponent implements OnInit {
 
 	public fill1(): void {
 		this.formGroup.setValue({
-			name: 'Основные блюда',
-			slug: 'mains',
+			name: 'Стоматология',
+			slug: 'dentistry',
 		});
 	}
 

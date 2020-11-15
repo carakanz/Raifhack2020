@@ -23,7 +23,7 @@ import { API_URL, BASE_DOMAIN } from './tokens';
 	providers: [
 		{
 			provide: BASE_DOMAIN,
-			useValue: 'localhost:4200',
+			useValue: 'localhost',
 		},
 		{
 			provide: API_URL,

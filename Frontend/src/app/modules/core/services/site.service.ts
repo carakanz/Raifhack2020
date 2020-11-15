@@ -103,12 +103,21 @@ export class SiteService {
 	}
 
 	public buy(request: BuyRequest): Observable<BuyResponse> {
-		return of({
-			publicId: '000003333328007-33328007',
-			amount: 200,
-			orderId: uuidv4(),
-		});
-		// return this.post('Basket/Buy', request);
+		// return of({
+		// 	publicId: '000003333328007-33328007',
+		// 	amount: 200,
+		// 	orderId: uuidv4(),
+		// });
+		return this.currentSite.pipe(
+			take(1),
+			map((x) => x.id),
+			switchMap((x) =>
+				this.post('Order/Create', {
+					...request,
+					shopId: x,
+				})
+			)
+		);
 	}
 
 	public buyEcom(request: BuyRequest): Observable<BuyResponse> {
@@ -120,13 +129,13 @@ export class SiteService {
 				});
 
 				const r = {
-					amount,
+					amount: amount / 100,
+					orderId,
 					successUrl: 'http://' + window.location.host + '/payment/success?orderId=' + orderId,
 					failUrl: 'http://' + window.location.host + '/payment/error?orderId=' + orderId,
 					comment: 'Тестовая оплата',
 				};
 
-				console.log(r);
 				paymentPage.replace(r);
 			})
 		);
@@ -203,7 +212,7 @@ export class SiteService {
 			map((x) => {
 				switch (x) {
 					case 'medsi':
-						return 'https://static.irk.ru/media/img/site/gallery/30474/1c299f89-8347-4c73-b462-2f309da635fd_jpg_800x600_x-False_q85.jpg';
+						return 'https://medi.spb.ru/assets/pics/23/23.jpg';
 					case 'veryfood':
 						return 'https://eda.ru/img/eda/1200x-i/s2.eda.ru/StaticContent/Photos/120213174921/1202131749503/p_O.jpg';
 				}

@@ -37,7 +37,7 @@ export class BusinessCreateProductsComponent implements OnInit {
 	public fill1(): void {
 		this.formGroup.setValue({
 			name: 'Детская стоматология',
-			cost: '-',
+			cost: 3000,
 			description: 'Позаботимся о ваших зубках',
 		});
 	}
@@ -52,8 +52,11 @@ export class BusinessCreateProductsComponent implements OnInit {
 				})
 				.pipe(take(1))
 				.subscribe(() => {
-					this.data.create.pipe(take(1)).subscribe((y) => {
-						window.open('http://' + y.slug + '.' + this.baseDomain, '_blank');
+					this.data.create.pipe(take(1)).subscribe((z) => {
+						const port = z.type === 'shop' ? 4200 : 4201;
+						this.data.create.pipe(take(1)).subscribe((y) => {
+							window.open('http://' + y.slug + '.' + this.baseDomain + ':' + port, '_blank');
+						});
 					});
 				});
 		});

@@ -46,7 +46,7 @@ export class ProductComponent implements OnInit {
 			this.site
 				.buy({
 					...this.formGroup.value,
-					products: [x],
+					products: [x.id],
 				})
 				.pipe(take(1))
 				.subscribe((y) => {

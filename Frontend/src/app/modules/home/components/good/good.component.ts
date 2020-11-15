@@ -33,7 +33,7 @@ export class GoodComponent implements OnInit {
 			this.site
 				.buyEcom({
 					...this.formGroup.value,
-					products: [x],
+					products: [x.id],
 				})
 				.pipe(take(1))
 				.subscribe();

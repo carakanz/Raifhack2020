@@ -1,0 +1,18 @@
+<h2 class="mat-display-1 text-center mb-4" (click)="fill()">
+	{{ (data.create.asObservable() | async)?.type === 'medicine' ? 'И основная услуга' : 'И лучший товар' }}
+</h2>
+<form class="d-flex flex-column" [formGroup]="formGroup" (click)="fill1()">
+	<mat-form-field appearance="outline">
+		<mat-label>Название</mat-label>
+		<input type="text" matInput formControlName="name" />
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Стоимость</mat-label>
+		<input type="text" matInput formControlName="cost" />
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Краткое описание</mat-label>
+		<input type="text" matInput formControlName="description" />
+	</mat-form-field>
+	<button mat-button type="submit" color="accent" (click)="submit()">Посмотреть на результат!</button>
+</form>

@@ -1,0 +1,21 @@
+<h2 class="mat-display-1 text-center mb-4" (click)="fill()">Основные сведения</h2>
+<p class="text-center" (click)="fill1()">Заполните основную информацию о вашем бизнесе</p>
+<form [formGroup]="formGroup" class="d-flex flex-column">
+	<mat-form-field appearance="outline">
+		<mat-label>Название</mat-label>
+		<input type="text" matInput formControlName="name" />
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Телефон</mat-label>
+		<input type="text" matInput formControlName="phone" />
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Адрес</mat-label>
+		<input type="text" matInput formControlName="address" />
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Домен</mat-label>
+		<input type="text" matInput formControlName="slug" />
+	</mat-form-field>
+	<button mat-button type="submit" color="accent" (click)="submit()">Готово!</button>
+</form>

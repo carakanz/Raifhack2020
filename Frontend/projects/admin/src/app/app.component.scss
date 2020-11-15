@@ -1,0 +1,29 @@
+.example-spacer {
+	flex: 1 1 auto;
+}
+
+.logo-wrapper {
+	height: 64px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 0 1rem;
+
+	img {
+		height: 50px;
+		display: block;
+	}
+}
+
+.content {
+	min-height: calc(100vh - 178px);
+}
+
+.example-spacer {
+	flex: 1 1 auto;
+}
+
+.footer {
+	background-color: whitesmoke;
+}

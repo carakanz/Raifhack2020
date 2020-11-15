@@ -1,0 +1,25 @@
+<div class="row flex-wrap">
+	<div class="col-4 my-3 product" *ngFor="let item of site.products | async">
+		<mat-card>
+			<mat-card-title class="mb-2">
+				{{ item.name }}
+			</mat-card-title>
+			<mat-card-subtitle class="mt-2 py-1">
+				<p class="price">{{ item.cost | ruble }}</p>
+			</mat-card-subtitle>
+			<app-image [id]="1"></app-image>
+			<mat-card-content>
+				{{ item.description }}
+			</mat-card-content>
+			<mat-card-actions class="d-flex justify-content-between">
+				<ng-container *ngIf="(site.currentSite.asObservable() | async)?.type === 'shop'">
+					<button mat-button (click)="select(item)">В один клик</button>
+					<button mat-button (click)="site.add(item)">В корзину</button>
+				</ng-container>
+				<ng-container *ngIf="(site.currentSite.asObservable() | async)?.type === 'medicine'">
+					<button mat-button (click)="select(item)">Записаться</button>
+				</ng-container>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

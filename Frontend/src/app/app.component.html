@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+	<div class="logo-wrapper" routerLink="/categories">
+		<img [src]="logo" alt="" />
+	</div>
+	<span class="example-spacer"></span>
+	<button
+		mat-icon-button
+		class="example-icon"
+		routerLink="/basket"
+		*ngIf="(site?.currentSite?.asObservable() | async)?.type === 'shop'"
+	>
+		<mat-icon>add_shopping_cart</mat-icon>
+	</button>
+	<button mat-icon-button class="example-icon">
+		<mat-icon>person</mat-icon>
+	</button>
+</mat-toolbar>
+<div class="spinner" *ngIf="loader.isShown">
+	<mat-spinner></mat-spinner>
+</div>
+
+<div class="content">
+	<router-outlet></router-outlet>
+</div>
+
+<div class="py-4 mat-toolbar mat-primary mt-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<p>
+					{{ (site?.currentSite?.asObservable() | async)?.name }}
+				</p>
+			</div>
+			<div class="col-6 text-right">
+				<p style="font-size: 1rem !important">
+					{{ (site?.currentSite?.asObservable() | async)?.phone }}
+				</p>
+				<p style="font-size: 1rem !important">
+					{{ (site?.currentSite?.asObservable() | async)?.address }}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

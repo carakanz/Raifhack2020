@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+	<span>Конструктор сайтов</span>
+	<span class="example-spacer"></span>
+</mat-toolbar>
+<ng-container *ngIf="sites$ | async as sites; else loader">
+	<div *ngIf="!!sites.length; else nothingToShow" class="container">
+		<mat-card *ngFor="let site of sites; trackBy: trackById" class="card">
+			<mat-card-header>
+				<mat-card-title>{{ site.name }}</mat-card-title>
+				<mat-card-subtitle>{{ site.type }}, расположен по адресу {{ site.slug }}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-actions class="with-padding">
+				<button mat-icon-button color="primary">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button color="primary">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+		<mat-card [routerLink]="['/create']">
+			<img mat-card-image src="https://www.freepnglogos.com/images/plus-icon-23551.html" />
+		</mat-card>
+	</div>
+</ng-container>
+<ng-template #loader>
+	<mat-spinner></mat-spinner>
+</ng-template>
+<ng-template #nothingToShow>
+	<!--	<app-nothing-found-->
+	<!--		*ngIf="!(isLoading$ | async)"-->
+	<!--		[icon]="nothingFoundIcon"-->
+	<!--		title="Вы не создали ни одного сайта">-->
+	<!--	</app-nothing-found>-->
+</ng-template>

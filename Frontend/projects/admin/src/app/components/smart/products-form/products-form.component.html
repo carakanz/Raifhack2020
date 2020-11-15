@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Категория</mat-label>
+		<mat-select formControlName="categories">
+			<mat-option *ngFor="let category of categories$ | async" value="option">
+				{{ category.name }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<br />
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Название</mat-label>
+		<input matInput formControlName="name" />
+	</mat-form-field>
+	<br />
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Цена</mat-label>
+		<input matInput formControlName="cost" />
+	</mat-form-field>
+	<mat-form-field appearance="fill" class="full-width">
+		<mat-label>Описание</mat-label>
+		<input matInput formControlName="description" />
+	</mat-form-field>
+</form>

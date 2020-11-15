@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -15,7 +17,10 @@ namespace ExternalApi.Models
     }
     public class Order
     {
+        [Key]
         public int Id { get; set; }
+        [Index]
+        public string Guid { get; set; }
         public Site Site { get; set; }
         public int Amount { get; set; }
 

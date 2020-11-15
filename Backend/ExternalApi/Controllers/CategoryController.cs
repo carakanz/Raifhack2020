@@ -115,6 +115,7 @@ namespace ExternalApi.Controllers
                 return NotFound("Category not found");
             }
             _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
             return new OkResult();
         }
     }

@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ExternalApi.Controllers
@@ -56,21 +59,19 @@ namespace ExternalApi.Controllers
                 .GroupBy(p => p)
                 .Select(g => new { id = g.Key, count = g.Count() });
 
-            var productsTask = groupProducts
-                .Select(async productId =>
+            var products = groupProducts
+                .Select(productId =>
                 {
-                    var product = await _context.Products
+                    var product = _context.Products
                     .Where(p => p.Id == productId.id)
                     .Include(p => p.Categories)
-                    .ThenInclude(c => c.Site).FirstOrDefaultAsync();
+                    .ThenInclude(c => c.Site).FirstOrDefault();
                     if (product is null)
                     {
                         return null;
                     }
                     return new { product = product.Categories.All(c => c.Site.Id == request.ShopId) ? product : null, productId.count };
                 });
-
-            var products = await Task.WhenAll(productsTask);
 
             if (products.Any(p => p is null))
             {
@@ -81,6 +82,7 @@ namespace ExternalApi.Controllers
             var order = new Models.Order
             {
                 Name = request.Name,
+                Guid = Guid.NewGuid().ToString(),
                 Address = request.Address,
                 DateTime = request.DateTime,
                 Email = request.Email,
@@ -103,7 +105,41 @@ namespace ExternalApi.Controllers
             await _context.SaveChangesAsync();
 
             transaction.Commit();
-            return new OrderCreateResponse(shop.User.PublicId, amount, order.Id.ToString());
+            return new OrderCreateResponse(shop.User.PublicId, amount, order.Guid);
+        }
+
+        public record Status(
+            string Value,
+            DateTime Date);
+
+        public record Transaction(
+            Status Status);
+
+        public record TransactionStatusResponse(
+            string Code,
+            Transaction Transaction);
+
+        const string CheckPaymentUrl = "https://test.ecom.raiffeisen.ru/api/payments/v1/orders/{0}/transaction";
+        [HttpPost("Payment")]
+        public async Task<ActionResult> Payment(string orderId)
+        {
+            var order = await _context.Orders.Where(o => o.Guid == orderId).FirstOrDefaultAsync();
+            if (order is null)
+            {
+                return NotFound("Not found order");
+            }
+            WebRequest request = WebRequest.Create(String.Format(CheckPaymentUrl, orderId));
+            request.Method = "POST";
+            request.ContentType = "application/json;charset=UTF-8";
+            request.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDMzMzMzMjgwMDctMzMzMjgwMDciLCJqdGkiOiI2ZTFlMjEyMi1mYTY4LTQ3MWMtOTAyYS01MGZhMmQ0ZmM4ZDMifQ.o5H_dRFPaefFp1cOJNZizzE1kg2i4hwOi7fSK_-FjW8");
+            WebResponse response = await request.GetResponseAsync();
+            using Stream stream = response.GetResponseStream();
+            using StreamReader reader = new StreamReader(stream);
+            using JsonTextReader jsonReader = new JsonTextReader(reader);
+            JsonSerializer ser = new JsonSerializer();
+            var transactionStatus = ser.Deserialize<TransactionStatusResponse>(jsonReader);
+
+            return new OkResult();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace ExternalApi.Controllers
                 return NotFound("Site not exist");
             }
 
-            if (!site.Categories.Any(c => c.Slug == response.Slug))
+            if (site.Categories.Any(c => c.Slug == response.Slug))
             {
                 return BadRequest("Exist slug");
             }

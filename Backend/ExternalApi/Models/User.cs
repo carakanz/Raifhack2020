@@ -9,6 +9,7 @@ namespace ExternalApi.Models
 {
     public class User
     {
+        //"000003333328007-33328007"
         [Key]
         public int Id { get; set; }
         public string PublicId { get; set; }

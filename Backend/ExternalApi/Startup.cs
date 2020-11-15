@@ -50,7 +50,6 @@ namespace ExternalApi
                 .UseNpgsql(
                    databaseSettings[nameof(Models.DatabaseOptions.PostgreSqlConnection)]));
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExternalApi", Version = "v1" });

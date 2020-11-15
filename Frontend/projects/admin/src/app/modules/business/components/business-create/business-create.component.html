@@ -3,19 +3,19 @@
 <form [formGroup]="formGroup" class="d-flex flex-column">
 	<mat-form-field appearance="outline">
 		<mat-label>Название</mat-label>
-		<input type="text" matInput formControlName="name">
+		<input type="text" matInput formControlName="name" />
 	</mat-form-field>
 	<mat-form-field appearance="outline">
 		<mat-label>Телефон</mat-label>
-		<input type="text" matInput formControlName="phone">
+		<input type="text" matInput formControlName="phone" />
 	</mat-form-field>
 	<mat-form-field appearance="outline">
 		<mat-label>Адрес</mat-label>
-		<input type="text" matInput formControlName="address">
+		<input type="text" matInput formControlName="address" />
 	</mat-form-field>
 	<mat-form-field appearance="outline">
 		<mat-label>Домен</mat-label>
-		<input type="text" matInput formControlName="slug">
+		<input type="text" matInput formControlName="slug" />
 	</mat-form-field>
 	<button mat-button type="submit" color="accent" (click)="submit()">Готово!</button>
 </form>

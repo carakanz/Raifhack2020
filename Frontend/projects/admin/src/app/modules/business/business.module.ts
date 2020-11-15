@@ -12,7 +12,14 @@ import { BusinessCreateTemplateComponent } from './components/business-create-te
 import { BusinessCreateProductsComponent } from './components/business-create-products/business-create-products.component';
 
 @NgModule({
-	declarations: [BusinessCreateComponent, BusinessAllComponent, BusinessCreateWrapperComponent, BusinessCreateCategoryComponent, BusinessCreateTemplateComponent, BusinessCreateProductsComponent],
+	declarations: [
+		BusinessCreateComponent,
+		BusinessAllComponent,
+		BusinessCreateWrapperComponent,
+		BusinessCreateCategoryComponent,
+		BusinessCreateTemplateComponent,
+		BusinessCreateProductsComponent,
+	],
 	imports: [CommonModule, BusinessRoutingModule, ReactiveFormsModule, SharedModule],
 })
 export class BusinessModule {}

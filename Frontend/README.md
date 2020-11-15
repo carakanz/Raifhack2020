@@ -10,9 +10,9 @@ npm run start:all
 
 ## Приложения
 
-* Админка - localhost:4202
-* Veryfood - veryfood.localhost:4200
-* МЕДСИ - medsi.localhost:4201
+-   Админка - localhost:4202
+-   Veryfood - veryfood.localhost:4200
+-   МЕДСИ - medsi.localhost:4201
 
 Чтобы это сработало, эти хосты должны быть прописаны в конфиге
 

@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormsConfig} from "../create-and-edit-site/config/forms.config";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormsConfig } from '../create-and-edit-site/config/forms.config';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-main-info',
 	templateUrl: './main-info.component.html',
-	styleUrls: ['./main-info.component.scss']
+	styleUrls: ['./main-info.component.scss'],
 })
 export class MainInfoComponent implements OnInit {
 	public mainForm: FormGroup;
@@ -16,18 +16,12 @@ export class MainInfoComponent implements OnInit {
 		return this.mainForm.get('delivery') as FormArray;
 	}
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private cdRef: ChangeDetectorRef,
-	) {
-	}
+	constructor(private formBuilder: FormBuilder, private cdRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
 		this.mainForm = this.formBuilder.group({
 			...FormsConfig.siteMainForm,
-			delivery: this.formBuilder.array([
-				this.formBuilder.group(FormsConfig.deliveryInfo),
-			]),
+			delivery: this.formBuilder.array([this.formBuilder.group(FormsConfig.deliveryInfo)]),
 		});
 	}
 

@@ -1,9 +1,14 @@
 <mat-toolbar color="primary">
 	<div class="logo-wrapper" routerLink="/categories">
-		<img [src]="logo" alt="">
+		<img [src]="logo" alt="" />
 	</div>
 	<span class="example-spacer"></span>
-	<button mat-icon-button class="example-icon" routerLink="/basket" *ngIf="(site?.currentSite?.asObservable() | async)?.type === 'shop'">
+	<button
+		mat-icon-button
+		class="example-icon"
+		routerLink="/basket"
+		*ngIf="(site?.currentSite?.asObservable() | async)?.type === 'shop'"
+	>
 		<mat-icon>add_shopping_cart</mat-icon>
 	</button>
 	<button mat-icon-button class="example-icon">
@@ -27,10 +32,10 @@
 				</p>
 			</div>
 			<div class="col-6 text-right">
-				<p style="font-size: 1rem !important;">
+				<p style="font-size: 1rem !important">
 					{{ (site?.currentSite?.asObservable() | async)?.phone }}
 				</p>
-				<p style="font-size: 1rem !important;">
+				<p style="font-size: 1rem !important">
 					{{ (site?.currentSite?.asObservable() | async)?.address }}
 				</p>
 			</div>

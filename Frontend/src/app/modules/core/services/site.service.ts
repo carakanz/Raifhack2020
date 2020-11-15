@@ -9,14 +9,6 @@ import { Site } from '../../../models/site';
 import { BuyRequest } from '../../../models/buy-request';
 import { BuyResponse } from '../../../models/buy-response';
 
-function uuidv4() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-		var r = (Math.random() * 16) | 0,
-			v = c == 'x' ? r : (r & 0x3) | 0x8;
-		return v.toString(16);
-	});
-}
-
 declare var PaymentPageSdk: any;
 
 @Injectable({
@@ -43,29 +35,9 @@ export class SiteService {
 			switch (x) {
 				case 'medsi':
 					this.banner.next('https://k50-a.akamaihd.net/k50/medsi/bg.jpg');
-					// this.categories.next([
-					// 	{
-					// 		name: 'Вакцинация',
-					// 		slug: 'first',
-					// 	},
-					// 	{
-					// 		name: 'Стоматология',
-					// 		slug: 'second',
-					// 	},
-					// ]);
 					break;
 				case 'veryfood':
 					this.banner.next('http://veryfood.ru/images/b0.jpg');
-					// this.categories.next([
-					// 	{
-					// 		name: 'Первое',
-					// 		slug: 'first',
-					// 	},
-					// 	{
-					// 		name: 'Второе',
-					// 		slug: 'second',
-					// 	},
-					// ]);
 					break;
 			}
 		});
@@ -103,11 +75,6 @@ export class SiteService {
 	}
 
 	public buy(request: BuyRequest): Observable<BuyResponse> {
-		// return of({
-		// 	publicId: '000003333328007-33328007',
-		// 	amount: 200,
-		// 	orderId: uuidv4(),
-		// });
 		return this.currentSite.pipe(
 			take(1),
 			map((x) => x.id),
@@ -160,50 +127,6 @@ export class SiteService {
 	}
 
 	public getCategory(id: number): Observable<Category> {
-		// return of([
-		// 	{
-		// 		id: 1,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// 	{
-		// 		id: 3,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// 	{
-		// 		id: 4,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// 	{
-		// 		id: 5,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// 	{
-		// 		id: 6,
-		// 		name: 'Тестовое название',
-		// 		description: 'Краткое описание',
-		// 		cost: 10000,
-		// 		image: [1],
-		// 	},
-		// ]);
 		return this.get('category/get/' + id).pipe(tap((x) => this.products.next(x.products)));
 	}
 
@@ -221,29 +144,6 @@ export class SiteService {
 		// return this.get('image/' + id, { responseType: 'blob' });
 	}
 	public getSite(): Observable<any> {
-		// return this.site.pipe(
-		// 	map((x) => {
-		// 		switch (x) {
-		// 			case 'medsi':
-		// 				return {
-		// 					name: 'МЕДСИ',
-		// 					phone: '798981212',
-		// 					address: 'Тестоввя улица, дом 5',
-		// 					description: 'Медицина компетенций',
-		// 					type: 'medicine',
-		// 				};
-		// 			case 'veryfood':
-		// 				return {
-		// 					name: 'Veryfood',
-		// 					phone: '798981212',
-		// 					address: 'Тестоввя улица, дом 5',
-		// 					description: 'Доставка вкусных обедов',
-		// 					type: 'shop',
-		// 				};
-		// 		}
-		// 	})
-		// );
-
 		return this.site.pipe(
 			take(1),
 			switchMap((x) => {

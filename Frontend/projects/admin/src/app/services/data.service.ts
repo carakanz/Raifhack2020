@@ -8,6 +8,7 @@ import { switchMap, take, tap } from 'rxjs/operators';
 	providedIn: 'root',
 })
 export class DataService {
+	public readonly sites: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 	public readonly create: ReplaySubject<any> = new ReplaySubject<any>(1);
 	public readonly category: ReplaySubject<any> = new ReplaySubject<any>(1);
 	public readonly products: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
@@ -16,6 +17,9 @@ export class DataService {
 
 	public post(path: string, body: any, options?: any): Observable<any> {
 		return this.http.post(this.api + '/' + path, body, options);
+	}
+	public get(path: string, options?: any): Observable<any> {
+		return this.http.get(this.api + '/' + path, options);
 	}
 
 	public createSite(req: any): Observable<any> {
@@ -36,6 +40,13 @@ export class DataService {
 					})
 				)
 			)
+		);
+	}
+
+	public getSites(): Observable<any> {
+		return this.get('sites/all').pipe(
+			take(1),
+			tap((x) => this.sites.next(x.filter((y) => ['veryfood', 'medsi'].includes(y.slug))))
 		);
 	}
 }
